@@ -19,7 +19,9 @@ import Knell.views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('account/register/', Knell.views.register),
-    path('account/login/', Knell.views.login),
+    path('account/register/', Knell.views.registerUser),
+    path('account/login/', Knell.views.loginUser),
+    path('account/logout/', Knell.views.logoutUser),
+    path('account/profile/', Knell.views.profile),
     path('', include('shop.urls')),
 ]

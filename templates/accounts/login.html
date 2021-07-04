@@ -1,1 +1,38 @@
 {% extends 'base.html' %}
+{% block title %}Knell Login{% endblock %}
+{% block content %}
+
+<form class="register-form" method="POST">
+    {% csrf_token %}
+    <div class="row mb-3">
+        <label class="col-sm-2 col-form-label">Username</label>
+        <div class="col-sm-10">
+        <input type="text" name="username">
+        </div>
+    </div>
+    <div class="row mb-3">
+        <label class="col-sm-2 col-form-label">Password</label>
+        <div class="col-sm-10">
+        <input type="password" name="password">
+        </div>
+    </div>
+    {% if form.errors %}
+        {% for field in form %}
+            {% for error in field.errors %}
+                <div class="alert alert-danger">
+                    <strong>{{ error|escape }}</strong>
+                </div>
+            {% endfor %}
+        {% endfor %}
+        {% for error in form.non_field_errors %}
+            <div class="alert alert-danger">
+                <strong>{{ error|escape }}</strong>
+            </div>
+        {% endfor %}
+    {% endif %} 
+    <button type="submit" class="btn btn-primary">Log in</button>
+    <p class="mt-5">Don't have an account yet? <a href="/account/register">Create one!</a></p>
+    </form>
+
+
+{% endblock %}

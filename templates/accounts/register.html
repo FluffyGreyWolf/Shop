@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% block title %}Knell Register{% endblock %}
 {% block content %}
 
 <form class="register-form" method="POST">
@@ -27,6 +28,20 @@
             <a type="password">{{ form.password2 }}</a>
         </div>
         </div>
+        {% if form.errors %}
+        {% for field in form %}
+            {% for error in field.errors %}
+                <div class="alert alert-danger">
+                    <strong>{{ error|escape }}</strong>
+                </div>
+            {% endfor %}
+        {% endfor %}
+        {% for error in form.non_field_errors %}
+            <div class="alert alert-danger">
+                <strong>{{ error|escape }}</strong>
+            </div>
+        {% endfor %}
+    {% endif %} 
     <button type="submit" class="btn btn-primary">Sign in</button><br>
     <p class="mt-5">Already have an account? <a href="/account/login/">Log in!</a></p>
     </form>
