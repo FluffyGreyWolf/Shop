@@ -15,8 +15,11 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+import Knell.views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('account/register/', Knell.views.register),
+    path('account/login/', Knell.views.login),
     path('', include('shop.urls')),
 ]

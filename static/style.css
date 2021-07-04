@@ -1,0 +1,9 @@
+body {
+    font-family: 'Source Sans Pro', sans-serif;
+    text-align: center;
+  }
+
+.register-form {
+    display: inline-block;
+    padding-top: 10%;
+}
