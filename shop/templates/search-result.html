@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block title %}Seach Result{% endblock %}
+
+{% block content %}
+
+{% for product in products %}
+{{ product.name }}
+{% endfor %}
+
+
+
+{% endblock %}
