@@ -1,6 +1,6 @@
 from django.db import models
 
-# Create your models here.
+# Product model
 class Product(models.Model):
     name = models.CharField(max_length=100, help_text="Name of the product")
     price = models.IntegerField(help_text="Price of the product")

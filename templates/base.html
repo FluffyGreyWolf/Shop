@@ -32,17 +32,26 @@
                 {% endif %}
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">Koszyk</a>
+                <a class="nav-link" href="#">Cart</a>
               </li>
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  Kategorie
+                  Categories
                 </a>
-                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <li><a class="dropdown-item" href="#">Action</a></li>
-                  <li><a class="dropdown-item" href="#">Another action</a></li>
-                  <li><hr class="dropdown-divider"></li>
-                  <li><a class="dropdown-item" href="#">Something else here</a></li>
+                <ul id="nav-category-menu" class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <li><button type="button" onclick="menuDropdown()" class="dropdown-item">Components</button>
+                    <ul id="display-list">
+                      <li><a href="/search-result?search-form=graphic">Graphic Cards</a></li>
+                      <li><a href="/search-result?search-form=processor">Proecessors</a></li>
+                      <li><a href="#">Motherboards</a></li>
+                      <li><a href="#">Memory</a></li>
+                      <li><a href="#">Hard Drivers</a></li>
+                      <li><a href="#">SDDs</a></li>
+                    </ul>
+                  </li>
+                  <li><a class="dropdown-item" href="#">Accessories</a></li>
+                  <li><a class="dropdown-item" href="#">Peripherials</a></li>
+                  <li><a class="dropdown-item" href="#">Mobile Devices</a></li>
                 </ul>
               </li>
               {% if request.user.is_authenticated %}
@@ -64,7 +73,45 @@
         </div>
       </nav>
     {% block content %}
-    
+    <div id="category-div">
+      <ol id="category-menu">
+        <li><a href="#">Components</a>
+        <ul>
+          <li><a href="/search-result?search-form=graphic">Graphic Cards</a></li>
+          <li><a href="/search-result?search-form=processor">Proecessors</a></li>
+          <li><a href="#">Motherboards</a></li>
+          <li><a href="#">Memory</a></li>
+          <li><a href="#">Hard Drivers</a></li>
+          <li><a href="#">SDDs</a></li>
+        </ul>
+        </li>
+
+        <li><a href="#">Accessories</a>
+          <ul>
+            <li><a href="#">Cables</a></li>
+            <li><a href="#">Adapters</a></li>
+            <li><a href="#">Hubs</a></li>
+          </ul>
+          </li>
+
+          <li><a href="#">Peripherals</a>
+            <ul>
+              <li><a href="#">Monitors</a></li>
+              <li><a href="#">Mice</a></li>
+              <li><a href="#">Keyboards</a></li>
+              <li><a href="#">Printers</a></li>
+            </ul>
+            </li> 
+
+            <li><a href="#">Mobile Devices</a>
+              <ul>
+                <li><a href="#">Phones</a></li>
+                <li><a href="#">Tablets</a></li>
+                <li><a href="#">Laptops</a></li>
+              </ul>
+              </li> 
+      </ol>
+    </div>
     {% endblock %}
     <!-- footer -->
     <footer class="bg-light text-center fixed-bottom">
