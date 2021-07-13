@@ -1,11 +1,120 @@
 body {
     font-family: 'Source Sans Pro', sans-serif;
     text-align: center;
+    margin: 0px;
+    padding: 0px;
   }
 
 .register-form {
     display: inline-block;
     padding-top: 10%;
+}
+
+/* navbar */
+nav {
+  background-color: #f8f9fa;
+  padding: 1px;
+}
+
+.nav-menu {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.nav-margin-right {
+  margin-right: auto;
+}
+
+.nav-margin-left{
+  margin-left: 20px;
+}
+
+.nav-link {
+  text-decoration: none;
+  color: black;
+}
+
+.nav-menu,
+.nav-submenu,
+.nav-subsubmenu {
+  list-style-type: none;
+}
+
+.nav-item {
+  padding: 15px;
+}
+
+.nav-button:hover {
+  text-decoration: underline;
+}
+
+.nav-dropdown {
+  position: relative;
+}
+
+.nav-submenu{
+  position: absolute;
+  left: -30px;
+  margin-top: 20px;
+  
+}
+
+.nav-subitem {
+  display: none;
+  background-color: white;
+  box-shadow: 1px 1px 1px 1px;
+  float: left;
+  width: 150px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 5px;
+  text-align: left;
+  position: relative;
+}
+
+.nav-subitem:hover,
+.nav-subsubitem:hover {
+  background-color: #DDD;
+}
+
+.nav-subsubmenu {
+  display: none;
+  position: absolute;
+  left:81%;
+  width:100%;
+}
+
+.nav-list:hover > ul {
+  display: block;
+}
+
+.nav-subsubitem {
+  background-color: white;
+  box-shadow: 1px 1px 1px 1px;
+  width: 75%;
+  float: left;
+  text-align: left;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+/* search form */
+input[type=search] {
+	padding-left: 20px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-right: 100px;
+	border: 1px solid black;
+  line-height: 30px;
+}
+
+#search-form-button {
+  border: solid 1px black;
+  background-color: #DDD;
+  text-decoration: none;
+  padding: 12px;
 }
 
 /* category menu */
@@ -71,4 +180,18 @@ body {
 
 #category-menu > li:hover > ul {
   display: inline-block;
+}
+
+
+/* footer */
+.footer {
+  background-color: #f8f9fa;
+  height: 60px;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
+
+.footer-content {
+  margin-top: 10px;
 }
