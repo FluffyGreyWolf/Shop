@@ -11,7 +11,7 @@
 </head>
 <body>
     <!-- navbar -->
-    <nav>
+    <nav onselectstart="return false;">
         <ul class="nav-menu">
             <li class="nav-logo"><a class="nav-link" href="/"><img src="{% static 'logo.png' %}" alt="Logo" width="70" height="50"></a></li>
 
@@ -33,15 +33,35 @@
                     <ul class="nav-subsubmenu">
                       <li><a class="nav-link nav-subsubitem" href="/search-result?search-form=graphic">Graphic Cards</a></li>
                       <li><a class="nav-link nav-subsubitem" href="/search-result?search-form=processor">Processors</a></li>
-                      <li><a class="nav-link nav-subsubitem" href="#">Motherboards</a></li>
-                      <li><a class="nav-link nav-subsubitem" href="#">Memory</a></li>
-                      <li><a class="nav-link nav-subsubitem" href="#">Hard Drivers</a></li>
-                      <li><a class="nav-link nav-subsubitem" href="#">SDDs</a></li>
+                      <li><a class="nav-link nav-subsubitem" href="/search-result?search-form=motherboard">Motherboards</a></li>
+                      <li><a class="nav-link nav-subsubitem" href="/search-result?search-form=memory">Memory</a></li>
+                      <li><a class="nav-link nav-subsubitem" href="/search-result?search-form=hdd">Hard Drivers</a></li>
+                      <li><a class="nav-link nav-subsubitem" href="/search-result?search-form=ssd">SDDs</a></li>
                     </ul>
                   </li>
-                  <li><a class="nav-link nav-subitem" href="#">Accessories</a></li>
-                  <li><a class="nav-link nav-subitem" href="#">Peripherials</a></li>
-                  <li><a class="nav-link nav-subitem" href="#">Mobile Devices</a></li>
+                  <li class="nav-list"><a class="nav-link nav-subitem">Accessories</a>
+                    <ul class="nav-subsubmenu">
+                      <li><a class="nav-link nav-subsubitem" href="/search-result?search-form=cable">Cables</a></li>
+                      <li><a class="nav-link nav-subsubitem" href="/search-result?search-form=adapter">Adapters</a></li>
+                      <li><a class="nav-link nav-subsubitem" href="/search-result?search-form=hub">Hubs</a></li>
+                    </ul>
+                  </li>
+                  <li class="nav-list"><a class="nav-link nav-subitem">Peripherials</a>
+                    <ul class="nav-subsubmenu">
+                      <li><a class="nav-link nav-subsubitem" href="/search-result?search-form=monitor">Monitors</a></li>
+                      <li><a class="nav-link nav-subsubitem" href="/search-result?search-form=mouse">Mice</a></li>
+                      <li><a class="nav-link nav-subsubitem" href="/search-result?search-form=keyboard">Keyboards</a></li>
+                      <li><a class="nav-link nav-subsubitem" href="/search-result?search-form=printer">Printers</a></li>
+                    </ul>
+                  </li>
+                  <li class="nav-list"><a class="nav-link nav-subitem">Mobile Devices</a>
+                    <ul class="nav-subsubmenu">
+                      <li><a class="nav-link nav-subsubitem" href="/search-result?search-form=phone">Phones</a></li>
+                      <li><a class="nav-link nav-subsubitem" href="/search-result?search-form=tablet">Tablets</a></li>
+                      <li><a class="nav-link nav-subsubitem" href="/search-result?search-form=laptop">Laptops</a></li>
+                      <li><a class="nav-link nav-subsubitem" href="/search-result?search-form=smartwach">Smartwaches</a></li>
+                    </ul>
+                  </li>
                 </ul>
             </li>
 
@@ -72,44 +92,48 @@
         </ul>
     </nav>
     {% block content %}
-    <div id="category-div">
+    <!-- Category menu -->
+    <div id="category-div" onselectstart="return false;">
       <ol id="category-menu">
         <li><a href="#">Components</a>
         <ul>
           <li><a href="/search-result?search-form=graphic">Graphic Cards</a></li>
           <li><a href="/search-result?search-form=processor">Processors</a></li>
-          <li><a href="#">Motherboards</a></li>
-          <li><a href="#">Memory</a></li>
-          <li><a href="#">Hard Drivers</a></li>
-          <li><a href="#">SDDs</a></li>
+          <li><a href="/search-result?search-form=motherboard">Motherboards</a></li>
+          <li><a href="/search-result?search-form=memory">Memory</a></li>
+          <li><a href="/search-result?search-form=hdd">Hard Drivers</a></li>
+          <li><a href="/search-result?search-form=ssd">SDDs</a></li>
         </ul>
         </li>
 
         <li><a href="#">Accessories</a>
           <ul>
-            <li><a href="#">Cables</a></li>
-            <li><a href="#">Adapters</a></li>
-            <li><a href="#">Hubs</a></li>
+            <li><a href="/search-result?search-form=cable">Cables</a></li>
+            <li><a href="/search-result?search-form=adapter">Adapters</a></li>
+            <li><a href="/search-result?search-form=hub">Hubs</a></li>
           </ul>
           </li>
 
           <li><a href="#">Peripherals</a>
             <ul>
-              <li><a href="#">Monitors</a></li>
-              <li><a href="#">Mice</a></li>
-              <li><a href="#">Keyboards</a></li>
-              <li><a href="#">Printers</a></li>
+              <li><a href="/search-result?search-form=monitor">Monitors</a></li>
+              <li><a href="/search-result?search-form=mouse">Mice</a></li>
+              <li><a href="/search-result?search-form=keyboard">Keyboards</a></li>
+              <li><a href="/search-result?search-form=printer">Printers</a></li>
             </ul>
             </li> 
 
             <li><a href="#">Mobile Devices</a>
               <ul>
-                <li><a href="#">Phones</a></li>
-                <li><a href="#">Tablets</a></li>
-                <li><a href="#">Laptops</a></li>
+                <li><a href="/search-result?search-form=phone">Phones</a></li>
+                <li><a href="/search-result?search-form=tablet">Tablets</a></li>
+                <li><a href="/search-result?search-form=laptop">Laptops</a></li>
+                <li><a href="/search-result?search-form=smartwach">Smartwatches</a></li>
               </ul>
               </li> 
+              
       </ol>
+      <p><img class="category-img" src="media/product_pictures/graphic-card-ad.jpg"></p>
     </div>
     {% endblock %}
     <!-- footer -->

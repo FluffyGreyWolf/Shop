@@ -2,14 +2,19 @@
 {% block title %}Seach Result{% endblock %}
 
 {% block content %}
+<div class="page-container">
+<div class="filters">
+    <p>Filters</p>
+</div>
 
+<div class="product-list">
 {% for product in products %}
-<ul class="list-group">
+<ul class="product">
     
-    <li class="list-group-item"> <img src="{{ product.picture }}" width="80" height="60"> {{ product.name }} <a href="{% url 'product-detail' product.pk %}">See more</a></li>
+    <li class="product-sublist"><img class="product-picture" src="{{ product.picture }}"> <p class="product-text">{{ product.name }} <a href="{% url 'product-detail' product.pk %}">See more</a></p></li>
 </ul>
 {% endfor %}
-
-
+</div>
+</div>
 
 {% endblock %}
