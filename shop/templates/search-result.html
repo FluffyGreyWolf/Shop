@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% block title %}Seach Result{% endblock %}
+{% block title %}Looking for: {{ searched }}{% endblock %}
 
 {% block content %}
 <div class="page-container">
@@ -32,8 +32,8 @@
 </div>
 <div class="product-list">
     <p class="result-title">Showing results for {{ searched }}:</p>
-{% if products %}
-{% for product in products %}
+{% if page %}
+{% for product in page.object_list %}
 <ul class="product">
     
     <li class="product-sublist"><img class="product-picture" src="{{ product.picture }}"> <p class="product-text">{{ product.name }} <a href="{% url 'product-detail' product.pk %}">See more</a></p><p class="product-text">{{ product.price }}$</p></li>
@@ -42,7 +42,38 @@
 {% else %}
 <p class="result-title" style="text-align: center;">There is no items with that name</p>
 {% endif %}
+
+    <div class="next-pages">
+        {% if page.number == 1 and page.has_next %}
+        <a class="nav-link pagination-button page-active" href="{% url 'search-result-price-filter' %}?search-form={{ searched }}&page={{ page.number }}&price-order={{ order }}&price-min={{ min }}&price-max={{ max }}&products={{ searched }}">1</a>
+        -
+        <a class="nav-link pagination-button" href="{% url 'search-result-price-filter' %}?search-form={{ searched }}&page={{ page.next_page_number }}&price-order={{ order }}&price-min={{ min }}&price-max={{ max }}&products={{ searched }}">{{ page.next_page_number }}</a>
+        ...
+        <a class="nav-link pagination-button" href="{% url 'search-result-price-filter' %}?search-form={{ searched }}&page={{ page.paginator.num_pages  }}&price-order={{ order }}&price-min={{ min }}&price-max={{ max }}&products={{ searched }}">{{ page.paginator.num_pages }}</a>
+        {% elif page.number == page.paginator.num_pages and page.number != 1 %}
+        <a class="nav-link pagination-button" href="{% url 'search-result-price-filter' %}?search-form={{ searched }}&page={{ 1 }}&price-order={{ order }}&price-min={{ min }}&price-max={{ max }}&products={{ searched }}">1</a>
+        ...
+        <a class="nav-link pagination-button" href="{% url 'search-result-price-filter' %}?search-form={{ searched }}&page={{ page.previous_page_number }}&price-order={{ order }}&price-min={{ min }}&price-max={{ max }}&products={{ searched }}">{{ page.previous_page_number }}</a>
+        -
+        <a class="nav-link pagination-button page-active" href="{% url 'search-result-price-filter' %}?search-form={{ searched }}&page={{ page.number }}&price-order={{ order }}&price-min={{ min }}&price-max={{ max }}&products={{ searched }}">{{ page.number }}</a>
+        {% elif page.number == 1 %}
+        <a class="nav-link pagination-button page-active" href="{% url 'search-result-price-filter' %}?search-form={{ searched }}&page={{ page.number }}&price-order={{ order }}&price-min={{ min }}&price-max={{ max }}&products={{ searched }}">1</a>
+        {% else %}
+        <a class="nav-link pagination-button" href="{% url 'search-result-price-filter' %}?search-form={{ searched }}&page={{ 1 }}&price-order={{ order }}&price-min={{ min }}&price-max={{ max }}&products={{ searched }}">1</a>
+        ...
+        <a class="nav-link pagination-button" href="{% url 'search-result-price-filter' %}?search-form={{ searched }}&page={{ page.previous_page_number }}&price-order={{ order }}&price-min={{ min }}&price-max={{ max }}&products={{ searched }}">{{ page.previous_page_number }}</a>
+        -
+        <a class="nav-link pagination-button page-active" href="{% url 'search-result-price-filter' %}?search-form={{ searched }}&page={{ page.number }}&price-order={{ order }}&price-min={{ min }}&price-max={{ max }}&products={{ searched }}">{{ page.number }}</a>
+        -
+        <a class="nav-link pagination-button" href="{% url 'search-result-price-filter' %}?search-form={{ searched }}&page={{ page.next_page_number }}&price-order={{ order }}&price-min={{ min }}&price-max={{ max }}&products={{ searched }}">{{ page.next_page_number }}</a>
+        ...
+        <a class="nav-link pagination-button" href="{% url 'search-result-price-filter' %}?search-form={{ searched }}&page={{ page.paginator.num_pages  }}&price-order={{ order }}&price-min={{ min }}&price-max={{ max }}&products={{ searched }}">{{ page.paginator.num_pages }}</a>
+        {% endif %}
+
+
+    </div>
 </div>
+
 </div>
 
 {% endblock %}

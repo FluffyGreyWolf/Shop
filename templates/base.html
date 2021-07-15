@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="{% static 'style.css' %}" />
 </head>
 <body>
+  <div class="content">
     <!-- navbar -->
     <nav onselectstart="return false;">
         <ul class="nav-menu">
@@ -136,12 +137,16 @@
       <p><img class="category-img" src="media/product_pictures/graphic-card-ad.jpg"></p>
     </div>
     {% endblock %}
+
+    {% block footer %}
     <!-- footer -->
     <footer class="footer">
-        <div class="footer-content">
-          Footer
-        </div>
-      </footer>
+      <div class="footer-content">
+        Footer
+      </div>
+    </footer>
+    {% endblock %}
+  </div>
     <!-- JS -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="{% static 'script.js' %}"></script> 

@@ -1,5 +1,5 @@
-from django.db.models.query_utils import RegisterLookupMixin
 from django.shortcuts import redirect, render, get_object_or_404
+from django.core.paginator import Paginator
 from .models import Product
 from itertools import chain
 
@@ -11,21 +11,25 @@ def home(request):
 def productSearch(request):
     if request.method == "GET":
         searched = request.GET['search-form']
+        page_num = request.GET.get('page')
         if searched == "":
             return redirect('/')
         products1 = Product.objects.filter(name__contains=searched)
         products2 = Product.objects.filter(category__contains=searched)
         products = products1 | products2
-        context = {'products': products, 'searched': searched}
+        products_paginator = Paginator(products, 2)
+        page = products_paginator.get_page(page_num)
+        context = {'page': page, 'searched': searched}
         return render(request, 'search-result.html', context)
     
-# View for filtering products by price
+# View for filtering products
 def productPriceFilter(request):
     if request.method == "GET":
         min = request.GET['price-min']
         max = request.GET['price-max']
         searched = request.GET['products']
         order = request.GET['price-order']
+        page_num = request.GET.get('page')
     if not min:
         min = 0
     if not max:
@@ -35,10 +39,14 @@ def productPriceFilter(request):
     products = products1 | products2
     if order == 'low':
         products = products.order_by('price')
-        context = {'products': products, 'searched': searched, 'order': 'low'}
+        products_paginator = Paginator(products, 2)
+        page = products_paginator.get_page(page_num)
+        context = {'page': page, 'searched': searched, 'order': 'low'}
     else:
         products = products.order_by('-price')
-        context = {'products': products, 'searched': searched, 'order': 'high'}
+        products_paginator = Paginator(products, 2)
+        page = products_paginator.get_page(page_num)
+        context = {'page': page, 'searched': searched, 'order': 'high'}
     return render(request, 'search-result.html', context)
 
 

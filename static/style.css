@@ -3,6 +3,9 @@ body {
     text-align: center;
     margin: 0px;
     padding: 0px;
+    height: 100%;
+    position: relative;
+    padding-bottom: 100px;
   }
 
 /* navbar */
@@ -194,10 +197,14 @@ input[type=search] {
 
 
 /* footer */
+.content {
+  min-height: 100vh;
+}
+
 .footer {
   background-color: #f8f9fa;
   height: 60px;
-  position: fixed;
+  position: absolute;
   bottom: 0;
   width: 100%;
 }
@@ -321,4 +328,22 @@ input[type=search] {
 
 #price-form-button:hover {
   background-color: #b8b8b8;
+}
+
+/* pagination buttons */
+.pagination-button {
+  margin-top: 15px;
+  padding: 5px;
+  width: 75px;
+  border: solid 1px black;
+  background-color: #DDD;
+  text-decoration: none;
+}
+
+.pagination-button:hover {
+  background-color: #b8b8b8;
+}
+
+.page-active {
+  background-color: #8c8c8c;
 }
