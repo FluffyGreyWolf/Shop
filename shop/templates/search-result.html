@@ -5,15 +5,28 @@
 <div class="page-container">
 <div class="filters">
     <p>Filters</p>
+    <div class="price-filter">
+        <p class="filters-title">Price</p>
+        <form method="GET" action="{% url 'search-result-price-filter' %}">
+        <input class="price-input" type="search" placeholder="Min" name="price-min">
+        <input class="price-input" type="search" placeholder="Max" name="price-max">
+        <input class="price-input" type="hidden" value="{{ searched }}" name="products">
+    </div>
+    <button id="price-form-button" type="submit">Search</button>
+</form>
 </div>
-
 <div class="product-list">
+    <p class="result-title">Showing results for {{ searched }}:</p>
+{% if products %}
 {% for product in products %}
 <ul class="product">
     
-    <li class="product-sublist"><img class="product-picture" src="{{ product.picture }}"> <p class="product-text">{{ product.name }} <a href="{% url 'product-detail' product.pk %}">See more</a></p></li>
+    <li class="product-sublist"><img class="product-picture" src="{{ product.picture }}"> <p class="product-text">{{ product.name }} <a href="{% url 'product-detail' product.pk %}">See more</a></p><p class="product-text">{{ product.price }}$</p></li>
 </ul>
 {% endfor %}
+{% else %}
+<p class="result-title" style="text-align: center;">There is no items with that name</p>
+{% endif %}
 </div>
 </div>
 
