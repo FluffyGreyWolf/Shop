@@ -6,11 +6,26 @@
 <div class="filters">
     <p>Filters</p>
     <div class="price-filter">
-        <p class="filters-title">Price</p>
         <form method="GET" action="{% url 'search-result-price-filter' %}">
+        <p class="filters-title">Price</p>
         <input class="price-input" type="search" placeholder="Min" name="price-min">
         <input class="price-input" type="search" placeholder="Max" name="price-max">
         <input class="price-input" type="hidden" value="{{ searched }}" name="products">
+
+        <p class="filters-title" style="margin-top: 30px;">Order by:</p>
+        <select name="price-order">
+            {% if order == 'high' %}
+            <option value="high">Highest price</option>
+            <option value="low">Lowest price</option>
+            {% elif order == 'low' %}
+            <option value="low">Lowest price</option>
+            <option value="high">Highest price</option>
+            {% else %}
+            <option value="high">---</option>
+            <option value="high">Highest price</option>
+            <option value="low">Lowest price</option>
+          {% endif %}
+        </select>
     </div>
     <button id="price-form-button" type="submit">Search</button>
 </form>

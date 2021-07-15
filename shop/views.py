@@ -13,10 +13,9 @@ def productSearch(request):
         searched = request.GET['search-form']
         if searched == "":
             return redirect('/')
-        # Chaining filters won't work? - returns empty queryset
         products1 = Product.objects.filter(name__contains=searched)
         products2 = Product.objects.filter(category__contains=searched)
-        products = list(chain(products1, products2))
+        products = products1 | products2
         context = {'products': products, 'searched': searched}
         return render(request, 'search-result.html', context)
     
@@ -26,14 +25,20 @@ def productPriceFilter(request):
         min = request.GET['price-min']
         max = request.GET['price-max']
         searched = request.GET['products']
+        order = request.GET['price-order']
     if not min:
         min = 0
     if not max:
         max = 50000
     products1 = Product.objects.filter(name__contains=searched).filter(price__gte=min).filter(price__lte=max)
     products2 = Product.objects.filter(category__contains=searched).filter(price__gte=min).filter(price__lte=max)
-    products = list(chain(products1, products2))
-    context = {'products': products, 'searched': searched}
+    products = products1 | products2
+    if order == 'low':
+        products = products.order_by('price')
+        context = {'products': products, 'searched': searched, 'order': 'low'}
+    else:
+        products = products.order_by('-price')
+        context = {'products': products, 'searched': searched, 'order': 'high'}
     return render(request, 'search-result.html', context)
 
 
