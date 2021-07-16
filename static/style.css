@@ -282,9 +282,10 @@ input[type=search] {
 }
 
 .product-sublist {
+  width: 100%;
   list-style-type: none;
   display: flex;
-  justify-content: flex-start;
+  justify-content: space-around;
 }
 
 .result-title {
@@ -292,7 +293,6 @@ input[type=search] {
   font-size: 30px;
 }
 .product{
-  text-align: left;
   width: 95%;
   margin-top: 30px;
   padding-top: 30px;
@@ -300,6 +300,8 @@ input[type=search] {
   background-color:#f8f9fa;
   border: solid 1px;
   box-shadow: 1px 1px 5px #888888;
+  display: flex;
+  justify-content: flex-start;
 }
 
 .product-picture {
@@ -307,9 +309,27 @@ input[type=search] {
   width: 200px;
 }
 
-.product-text {
-  font-size: 35px;
-  margin: auto;
+.product-name {
+  width: 100%;
+  font-size: 20px;
+  margin-left: 50px;
+  text-align: left;
+}
+
+.product-price {
+  font-size: 50px;
+  text-align: right;
+  margin-top: -10px;
+  margin-right: 100px;
+  position: absolute;
+  right: 0;
+}
+
+.add-to-cart {
+  width: 30%;
+  height: 40%;
+  margin-top: 100px;
+  margin-right: 10px;
 }
 
 .page-container {

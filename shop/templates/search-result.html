@@ -3,6 +3,7 @@
 {% load static %}
 {% block content %}
 <div class="page-container">
+    <!-- menu with filter options -->
 <div class="filters">
     <p>Filters</p>
     <div class="price-filter">
@@ -32,11 +33,18 @@
 </div>
 <div class="product-list">
     <p class="result-title">Showing results for {{ searched }}:</p>
+
+<!-- display of item list -->
 {% if page %}
 {% for product in page.object_list %}
 <ul class="product">
     
-    <li class="product-sublist"><img class="product-picture" src="{{ product.picture }}"> <p class="product-text">{{ product.name }} <a href="{% url 'product-detail' product.pk %}">See more</a></p><p class="product-text">{{ product.price }}$</p></li>
+    <li class="product-sublist">
+        <img class="product-picture" src="{{ product.picture }}">
+        <p class="product-name"><a class="nav-link nav-button" href="{% url 'product-detail' product.pk %}">{{ product.name }}</a></p>
+        <p class="product-price">{{ product.price }}$</p>
+        <button class="add-to-cart" type="submit">Add to cart</button>
+    </li>
 </ul>
 {% endfor %}
 {% else %}
@@ -44,22 +52,28 @@
 <p><img src="{% static 'error.png' %}" width="100px" height="100px"></p>
 {% endif %}
 
+<!-- pagination buttons -->
     <div class="next-pages">
-        {% if page.number == 1 and page.has_next %}
+        {% if page.object_list.count == 0 %}
+        <!-- there are no items -->
+        {% elif page.number == 1 and page.has_next %}
+        <!-- first page -->
         <a class="nav-link pagination-button page-active" href="{% url 'search-result-price-filter' %}?search-form={{ searched }}&page={{ page.number }}&price-order={{ order }}&price-min={{ min }}&price-max={{ max }}&products={{ searched }}">1</a>
         -
         <a class="nav-link pagination-button" href="{% url 'search-result-price-filter' %}?search-form={{ searched }}&page={{ page.next_page_number }}&price-order={{ order }}&price-min={{ min }}&price-max={{ max }}&products={{ searched }}">{{ page.next_page_number }}</a>
         ...
         <a class="nav-link pagination-button" href="{% url 'search-result-price-filter' %}?search-form={{ searched }}&page={{ page.paginator.num_pages  }}&price-order={{ order }}&price-min={{ min }}&price-max={{ max }}&products={{ searched }}">{{ page.paginator.num_pages }}</a>
         {% elif page.number == page.paginator.num_pages and page.number != 1 %}
+        <!-- last page -->
         <a class="nav-link pagination-button" href="{% url 'search-result-price-filter' %}?search-form={{ searched }}&page={{ 1 }}&price-order={{ order }}&price-min={{ min }}&price-max={{ max }}&products={{ searched }}">1</a>
         ...
         <a class="nav-link pagination-button" href="{% url 'search-result-price-filter' %}?search-form={{ searched }}&page={{ page.previous_page_number }}&price-order={{ order }}&price-min={{ min }}&price-max={{ max }}&products={{ searched }}">{{ page.previous_page_number }}</a>
         -
         <a class="nav-link pagination-button page-active" href="{% url 'search-result-price-filter' %}?search-form={{ searched }}&page={{ page.number }}&price-order={{ order }}&price-min={{ min }}&price-max={{ max }}&products={{ searched }}">{{ page.number }}</a>
         {% elif page.number == 1 %}
-        <a class="nav-link pagination-button page-active" href="{% url 'search-result-price-filter' %}?search-form={{ searched }}&page={{ page.number }}&price-order={{ order }}&price-min={{ min }}&price-max={{ max }}&products={{ searched }}">1</a>
+        <!-- only one page of items -->
         {% else %}
+        <!-- every other page -->
         <a class="nav-link pagination-button" href="{% url 'search-result-price-filter' %}?search-form={{ searched }}&page={{ 1 }}&price-order={{ order }}&price-min={{ min }}&price-max={{ max }}&products={{ searched }}">1</a>
         ...
         <a class="nav-link pagination-button" href="{% url 'search-result-price-filter' %}?search-form={{ searched }}&page={{ page.previous_page_number }}&price-order={{ order }}&price-min={{ min }}&price-max={{ max }}&products={{ searched }}">{{ page.previous_page_number }}</a>
