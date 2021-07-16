@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% block title %}Looking for: {{ searched }}{% endblock %}
-
+{% load static %}
 {% block content %}
 <div class="page-container">
 <div class="filters">
@@ -40,7 +40,8 @@
 </ul>
 {% endfor %}
 {% else %}
-<p class="result-title" style="text-align: center;">There is no items with that name</p>
+<p class="result-title" style="text-align: center;">We don't have these items</p>
+<p><img src="{% static 'error.png' %}" width="100px" height="100px"></p>
 {% endif %}
 
     <div class="next-pages">
