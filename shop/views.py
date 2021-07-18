@@ -1,11 +1,16 @@
 from django.shortcuts import redirect, render, get_object_or_404
 from django.core.paginator import Paginator
-from .models import Product
+from .models import Product, orderProduct, Order
+from .utils import refCodeGenereator
 from itertools import chain
+from django.contrib.auth import get_user_model
 
-# Main page view
+# View for rendering main page
 def home(request):
-    return render(request, 'base.html')
+    user = get_object_or_404(get_user_model(), username=request.user)
+    order = Order.objects.get_or_create(owner=user, is_ordered=False)
+    context = {'user': user, 'order': order}
+    return render(request, 'base.html', context)
 
 # View for searching products
 def productSearch(request):
@@ -49,11 +54,47 @@ def productPriceFilter(request):
         context = {'page': page, 'searched': searched, 'order': 'high'}
     return render(request, 'search-result.html', context)
 
-
-
-
 # View for detailed page of product
 def productDetail(request, pk):
     product = get_object_or_404(Product, pk=pk)
     context = {'product': product}
     return render(request, 'product-detail.html', context)
+
+# View for rednering shopping cart page
+def cart(request):
+    user = get_object_or_404(get_user_model(), username=request.user)
+    order = Order.objects.get(owner=user)
+    context = {'order': order}
+    return render(request, 'cart.html', context)
+
+# View for adding items to cart
+def addToCartBuy(request, pk):
+    user = get_object_or_404(get_user_model(), username=request.user)
+    product = get_object_or_404(Product, pk=pk)
+    ordered_item, status  = orderProduct.objects.get_or_create(product=product)
+    user_order, status = Order.objects.get_or_create(owner=user, is_ordered=False)
+    user_order.products.add(ordered_item)
+    if status:
+        user_order.ref_code = refCodeGenereator()
+        user_order.save()
+    return redirect('cart')
+
+def addToCart(request, pk):
+    user = get_object_or_404(get_user_model(), username=request.user)
+    product = get_object_or_404(Product, pk=pk)
+    ordered_item, status  = orderProduct.objects.get_or_create(product=product)
+    user_order, status = Order.objects.get_or_create(owner=user, is_ordered=False)
+    user_order.products.add(ordered_item)
+    if status:
+        user_order.ref_code = refCodeGenereator()
+        user_order.save()
+    return redirect('product-detail', pk)
+
+# View for removing items from cart
+def removeFromCart(request, pk):
+    item_to_delete = orderProduct.objects.filter(pk=pk)
+    user = get_object_or_404(get_user_model(), username=request.user)
+    order = Order.objects.get(owner=user)
+    if item_to_delete.exists():
+        item_to_delete[0].delete()
+        return redirect('cart')

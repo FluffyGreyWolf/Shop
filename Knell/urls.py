@@ -21,10 +21,10 @@ import Knell.views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('account/register/', Knell.views.registerUser),
-    path('account/login/', Knell.views.loginUser),
-    path('account/logout/', Knell.views.logoutUser),
-    path('account/profile/', Knell.views.profile),
+    path('account/register/', Knell.views.registerUser, name='register-url'),
+    path('account/login/', Knell.views.loginUser, name='login-url'),
+    path('account/logout/', Knell.views.logoutUser, name='logout-url'),
+    path('account/profile/', Knell.views.profile, name='profile-url'),
     path('', include('shop.urls')),
 ]
 

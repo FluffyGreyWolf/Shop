@@ -1,8 +1,8 @@
 {% extends 'base.html' %} 
-{% block title %} {% endblock %}
+{% block title %} {{ product.name }} {% endblock %}
 {% block content %}
 
 {{ product.name }}
 {{ product.price }}
-
+<a class="add-to-cart" href="{% url 'add-to-cart' product.pk %}" type="submit">Add to cart</a>
 {% endblock %}
