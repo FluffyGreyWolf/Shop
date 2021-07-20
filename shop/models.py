@@ -18,15 +18,24 @@ class Product(models.Model):
 # Single order model that fits single product
 class orderProduct(models.Model):
     product = models.OneToOneField(Product, on_delete=models.SET_NULL, null=True)
-    is_ordered = models.BooleanField(default=False)
     date_added = models.DateTimeField(auto_now=True)
-    date_ordered = models.DateTimeField(null=True)
 
     def __str__(self):
         return self.product.name
 
 # Model containing all orderProduct as an order
 class Order(models.Model):
+    ref_code = models.CharField(max_length=32)
+    owner = models.ForeignKey(get_user_model(), on_delete=models.SET_NULL, null=True)
+    products = models.ManyToManyField(orderProduct)
+
+    def cart_list(self):
+        return self.products.all()
+
+    def __str__(self):
+        return f"Order reference number: {self.ref_code}"
+
+class orderHistory(models.Model):
     ref_code = models.CharField(max_length=32)
     owner = models.ForeignKey(get_user_model(), on_delete=models.SET_NULL, null=True)
     is_ordered = models.BooleanField(default=False)

@@ -1,0 +1,14 @@
+{% extends 'base.html' %} 
+{% block title %} Checkout {% endblock %}
+{% block content %}
+
+<h2 style="margin-left: 20px;">Your order</h2>
+<ul class="no-style-list cart-list">
+{% for item in items %}
+<li class="cart-item">{{ item }} <span class="remove-button">Price: {{ item.product.price }}$</span></li>
+{% endfor %}
+<li class="cart-item">Price for all these items:<span class="remove-button">{{ price }}$</span></li>
+</ul>
+<a class="link-button" href="{% url 'buy' %}">Buy!</a>
+
+{% endblock %}

@@ -367,3 +367,44 @@ input[type=search] {
 .page-active {
   background-color: #8c8c8c;
 }
+
+/* cart and checkout */
+.no-style-list {
+  list-style-type: none;
+}
+
+.link-button{
+  color: black;
+  text-decoration: none;
+  background-color: #DDD;
+  padding: 5px;
+  border: 1px solid;
+  border-radius: 5px;
+}
+
+.link-button:hover {
+  background-color: #b8b8b8;
+}
+
+.cart-list{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.cart-item{
+  width: 30%;
+  display: flex;
+  align-items: flex-start;
+  margin: 30px;
+  padding: 20px;
+}
+
+.remove-button{
+  position: absolute;
+  margin-left: 25%;
+}
+
+.checkout-item-list{
+  margin: 10px;
+}

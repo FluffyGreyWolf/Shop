@@ -2,18 +2,20 @@
 {% block title %} Cart {% endblock %}
 {% block content %}
 
-{% if order.cart_list %}
-{% for item in order.cart_list %}
 
-<li>{{ item }}</li>
-<a href="{% url 'remove-from-cart' item.pk %}">Remove</a>
-<br>
-{% endfor %}
-{{ user_order }}
-<a href="#">Proceed to checkout</a>
-{% else %}
-Your's cart is empty 
-{% endif %}
+
+<ul class="no-style-list cart-list">
+    {% if order.cart_list %}
+    <h2>Your order</h2>
+    {% for item in order.cart_list %}
+    <li class="cart-item">{{ item }} <a class="link-button remove-button" href="{% url 'remove-from-cart' item.pk %}">Remove</a></li>
+    {% endfor %}
+    <a class="link-button" href="{% url 'checkout' %}">Proceed to checkout</a>
+    {% else %}
+    <h2>Your cart is empty </h2>
+    {% endif %}
+</ul>
+
 
 
 {% endblock %}
