@@ -3,8 +3,14 @@
 {% block content %}
 <div class="profile-content">
     <div class="profile-picture-div">
-        <img class="profile-picture" width="250" height="250" src="{{ MEDIA_URL }}{{ user_profile.profile_pricture }}">
-        <p><a class="link-button" href="#">Change picture</a></p>
+        <img class="profile-picture" width="250" height="250" src="{{ user_profile.profile_picture.url }}">
+
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <p><input type="submit" value="Change picture" class="link-button"></p>
+        </form>
+       <p><a class="link-button" href="{% url 'reset-profile-picture' %}">Reset to default</a></p>
     </div>
 
     <div class="profile-data">

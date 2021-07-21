@@ -50,5 +50,5 @@ class orderHistory(models.Model):
 
 class userProfile(models.Model):
     user = models.ForeignKey(get_user_model(), on_delete=models.SET_NULL, null=True)
-    profile_pricture = models.TextField(max_length=100, default="/user_pictures/default_profile_picture.png")
+    profile_picture = models.ImageField(upload_to="user_pictures/", default="default_profile_picture.png")
     bio = models.TextField(max_length=500, blank=True)

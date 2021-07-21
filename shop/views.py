@@ -4,12 +4,16 @@ from .models import Product, orderHistory, orderProduct, Order
 from .utils import refCodeGenereator
 from itertools import chain
 from django.contrib.auth import get_user_model
+from django.contrib.auth.decorators import login_required
 
 # View for rendering main page
 def home(request):
-    user = get_object_or_404(get_user_model(), username=request.user)
-    order = Order.objects.get_or_create(owner=user)
-    context = {'user': user, 'order': order}
+    if request.user.is_authenticated:
+        user = get_object_or_404(get_user_model(), username=request.user)
+        order = Order.objects.get_or_create(owner=user)
+        context = {'user': user, 'order': order}
+    else:
+        context = {}
     return render(request, 'base.html', context)
 
 # View for searching products
@@ -61,13 +65,15 @@ def productDetail(request, pk):
     return render(request, 'product-detail.html', context)
 
 # View for rednering shopping cart page
+@login_required(login_url='/account/login/')
 def cart(request):
     user = get_object_or_404(get_user_model(), username=request.user)
     order = Order.objects.get(owner=user)
     context = {'order': order}
     return render(request, 'cart.html', context)
 
-# View for adding items to cart
+# View for adding items to cart by BUY NOW button
+@login_required(login_url='/account/login/')
 def addToCartBuy(request, pk):
     user = get_object_or_404(get_user_model(), username=request.user)
     product = get_object_or_404(Product, pk=pk)
@@ -78,6 +84,8 @@ def addToCartBuy(request, pk):
     user_order.save()
     return redirect('cart')
 
+# View for adding items to cart by ADD TO CART button
+@login_required(login_url='/account/login/')
 def addToCart(request, pk):
     user = get_object_or_404(get_user_model(), username=request.user)
     product = get_object_or_404(Product, pk=pk)
@@ -89,6 +97,7 @@ def addToCart(request, pk):
     return redirect('product-detail', pk)
 
 # View for removing items from cart
+@login_required(login_url='/account/login/')
 def removeFromCart(request, pk):
     item_to_delete = orderProduct.objects.filter(pk=pk)
     if item_to_delete.exists():
@@ -96,6 +105,7 @@ def removeFromCart(request, pk):
         return redirect('cart')
 
 # View for checkout page
+@login_required(login_url='/account/login/')
 def checkout(request):
     user = get_object_or_404(get_user_model(), username=request.user)
     order = Order.objects.get(owner=user)
@@ -107,6 +117,7 @@ def checkout(request):
     return render(request, 'checkout.html', context)
 
 # View for fake-buying items
+@login_required(login_url='/account/login/')
 def buy(request):
     user = get_object_or_404(get_user_model(), username=request.user)
     order = Order.objects.get(owner=user)
@@ -119,6 +130,7 @@ def buy(request):
     return redirect('buy-success')
 
 # View for displaying page after successful purchase
+@login_required(login_url='/account/login/')
 def buySuccess(request):
     user = get_object_or_404(get_user_model(), username=request.user)
     orders = orderHistory.objects.filter(owner=user)

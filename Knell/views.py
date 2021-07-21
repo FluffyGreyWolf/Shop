@@ -1,7 +1,7 @@
 from django.contrib.auth import forms
 from django.shortcuts import redirect, render, get_object_or_404
 from django.contrib.auth.forms import UserCreationForm
-from Knell.forms import CreateUserForm
+from Knell.forms import CreateUserForm, changePictureForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
@@ -51,5 +51,20 @@ def profile(request):
     user = get_object_or_404(get_user_model(), username=request.user)
     user_profile, status = userProfile.objects.get_or_create(user=user)
     orders = orderHistory.objects.filter(owner=user)
-    context = {'user_profile': user_profile, 'orders': orders}
+    if request.method == 'POST':
+        form = changePictureForm(request.POST, request.FILES, instance=user_profile)
+        if form.is_valid:
+            form.save()
+            return redirect('profile-url')
+    else:
+        form = changePictureForm()
+    context = {'user_profile': user_profile, 'orders': orders, 'form': form}
     return render(request, 'accounts/profile.html', context)
+
+@login_required(login_url='/account/login/')
+def resetProfilePicture(request):
+    user = get_object_or_404(get_user_model(), username=request.user)
+    user_profile, status = userProfile.objects.get_or_create(user=user)
+    user_profile.profile_picture = "user_pictures/default_profile_picture.png"
+    user_profile.save()
+    return redirect('profile-url')
