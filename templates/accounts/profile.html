@@ -1,8 +1,24 @@
 {% extends 'base.html' %}
 {% block title %} {{ request.user }} Profile {% endblock %}
 {% block content %}
-Dane konta:<br>
-Username: {{ request.user.username }}<br>
-Email: {{ request.user.email }}<br>
+<div class="profile-content">
+    <div class="profile-picture-div">
+        <img class="profile-picture" width="250" height="250" src="{{ MEDIA_URL }}{{ user_profile.profile_pricture }}">
+        <p><a class="link-button" href="#">Change picture</a></p>
+    </div>
 
+    <div class="profile-data">
+        <h3>Account data:</h3>
+        <h4>Username: {{ request.user.username }}</h4>
+        <h4>Email: {{ request.user.email }}</h4>
+    </div>
+
+    <div class="orders-div">
+        <h3>Your orders</h3>
+        {% for order in orders %}
+            <p>{{ order }}</p>
+        {% endfor %}
+
+    </div>
+</div>
 {% endblock %}

@@ -42,9 +42,9 @@
     <li class="product-sublist">
         <img class="product-picture" src="{{ STATIC_URL }}{{ product.picture }}">
         <p class="product-name"><a class="nav-link nav-button" href="{% url 'product-detail' product.pk %}">{{ product.name }}</a></p>
-        <p class="product-price">{{ product.price }}$</p>
+        <p class="product-price">{{ product.price }}$
             <a class="add-to-cart" href="{% url 'add-to-cart-buy' product.pk %}" type="submit">Buy now</a>
-        
+        </p>    
     </li>
 </ul>
 {% endfor %}

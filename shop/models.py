@@ -47,3 +47,8 @@ class orderHistory(models.Model):
 
     def __str__(self):
         return f"Order reference number: {self.ref_code}"
+
+class userProfile(models.Model):
+    user = models.ForeignKey(get_user_model(), on_delete=models.SET_NULL, null=True)
+    profile_pricture = models.TextField(max_length=100, default="/user_pictures/default_profile_picture.png")
+    bio = models.TextField(max_length=500, blank=True)

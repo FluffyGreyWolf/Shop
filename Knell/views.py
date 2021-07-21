@@ -1,10 +1,12 @@
 from django.contrib.auth import forms
-from django.shortcuts import redirect, render
+from django.shortcuts import redirect, render, get_object_or_404
 from django.contrib.auth.forms import UserCreationForm
 from Knell.forms import CreateUserForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth import get_user_model
+from shop.models import userProfile, orderHistory
 
 def registerUser(request):
     if request.user.is_authenticated:
@@ -46,5 +48,8 @@ def logoutUser(request):
 
 @login_required(login_url='/account/login/')
 def profile(request):
-    context = {}
+    user = get_object_or_404(get_user_model(), username=request.user)
+    user_profile, status = userProfile.objects.get_or_create(user=user)
+    orders = orderHistory.objects.filter(owner=user)
+    context = {'user_profile': user_profile, 'orders': orders}
     return render(request, 'accounts/profile.html', context)
