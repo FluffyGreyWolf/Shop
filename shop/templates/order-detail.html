@@ -1,0 +1,15 @@
+{% extends 'base.html' %} 
+{% block title %} Cart {% endblock %}
+{% block content %}
+
+<ul class="no-style-list cart-list">
+    <h2>Your order</h2>
+    {% for item in order.cart_list %}
+    <li class="cart-item">{{ item }} <span class="remove-button">Price: {{ item.product.price }}$</span></li>
+    {% endfor %}
+    <li class="cart-item">Price for all these items:<span class="remove-button">{{ order.price }}$</span></li>
+</ul>
+
+
+
+{% endblock %}

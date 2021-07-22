@@ -121,8 +121,11 @@ def checkout(request):
 def buy(request):
     user = get_object_or_404(get_user_model(), username=request.user)
     order = Order.objects.get(owner=user)
-    order_history, status = orderHistory.objects.get_or_create(owner=user, ref_code=order.ref_code, is_ordered=True)
     items = orderProduct.objects.filter(order=order)
+    price = 0
+    for item in items:
+        price += item.product.price
+    order_history, status = orderHistory.objects.get_or_create(owner=user, ref_code=order.ref_code, is_ordered=True, price=price)
     for item in items:
         order_history.products.add(item)
     order_history.save()
@@ -137,3 +140,10 @@ def buySuccess(request):
     order = Order.objects.get_or_create(owner=user)
     context = {'orders': orders}
     return render(request, 'buy-success.html', context)
+
+# View for detailed page of order
+@login_required(login_url='/account/login/')
+def orderDetail(request, pk):
+    order = get_object_or_404(orderHistory, pk=pk)
+    context = {'order': order}
+    return render(request, 'order-detail.html', context)

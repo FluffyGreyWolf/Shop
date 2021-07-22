@@ -437,3 +437,9 @@ margin-top: 50px;
 .orders-div{
   margin-top: 50px;
 }
+
+.single-order{
+  background-color: #DDD;
+    border: 1px solid;
+  border-radius: 5px;
+}

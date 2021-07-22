@@ -1,12 +1,11 @@
-from django.contrib.auth import forms
 from django.shortcuts import redirect, render, get_object_or_404
-from django.contrib.auth.forms import UserCreationForm
 from Knell.forms import CreateUserForm, changePictureForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import get_user_model
 from shop.models import userProfile, orderHistory
+
 
 def registerUser(request):
     if request.user.is_authenticated:
@@ -53,8 +52,9 @@ def profile(request):
     orders = orderHistory.objects.filter(owner=user)
     if request.method == 'POST':
         form = changePictureForm(request.POST, request.FILES, instance=user_profile)
-        if form.is_valid:
+        if form.is_valid():
             form.save()
+            
             return redirect('profile-url')
     else:
         form = changePictureForm()
