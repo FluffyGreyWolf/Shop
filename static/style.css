@@ -409,12 +409,7 @@ input[type=search] {
   margin: 10px;
 }
 
-/* profile
-
-  float: left;
-  margin: 50px;
-  
-  */
+/* profile */
 .profile-content{
   display: grid;
   grid-template-columns: 0fr 2fr 1fr;
@@ -436,10 +431,49 @@ margin-top: 50px;
 
 .orders-div{
   margin-top: 50px;
+  margin-right: 25px;
 }
 
 .single-order{
   background-color: #DDD;
     border: 1px solid;
   border-radius: 5px;
+}
+
+/* Product details */
+.product-details-content{
+  display: grid;
+  grid-template-columns: 0fr 2fr 1fr;
+}
+
+.product-details-content > img {
+  margin: 50px;
+  width: 400px;
+  height: 300px;
+}
+
+.product-details-name {
+  margin-top: 60px;
+  font-size: 25px;
+}
+
+.product-details-name > p{
+  font-size: 15px;
+  margin-left: 0px;
+  text-align: left;
+}
+
+.product-details-price {
+  margin-top: 60px;
+}
+
+.product-details-price > p {
+  margin-bottom: 60px;
+  font-size: 50px;
+}
+
+.product-details-desc {
+  background-color: #DDD;
+  width: 80%;
+  margin: auto;
 }

@@ -1,8 +1,26 @@
 {% extends 'base.html' %} 
 {% block title %} {{ product.name }} {% endblock %}
 {% block content %}
-
-{{ product.name }}
-{{ product.price }}
-<a class="add-to-cart" href="{% url 'add-to-cart' product.pk %}" type="submit">Add to cart</a>
+<div class="product-details-content">
+    <img src="{{ STATIC_URL }}{{ product.picture }}">
+    <div class="product-details-name">
+        {{ product.name }}<br>
+        <p>Brand: {{ product.brand }}</p>
+        <p>Warranty: {{ product.warranty }}</p>
+        <p>Free shipping:
+            {% if product.shipping %}
+                <span style="color: green">&#10003;</span>
+            {% else %}
+                <span style="color: red">&#10005;</span>
+            {% endif %}
+        </p>
+    </div> 
+    <div class="product-details-price">
+        <p>{{ product.price }}$</p>
+        <a class="link-button" href="{% url 'add-to-cart' product.pk %}" type="submit">Add to cart</a>
+    </div>
+</div>
+<div class="product-details-desc">
+    {{ product.description|safe }}
+</div>
 {% endblock %}

@@ -41,10 +41,12 @@ def loginUser(request):
             messages.info(request, 'Username or password is incorrect')
     return render(request, 'accounts/login.html')
 
+@login_required(login_url='/account/login/')
 def logoutUser(request):
     logout(request)
     return redirect('/account/login')
 
+# View for rednering user profile page
 @login_required(login_url='/account/login/')
 def profile(request):
     user = get_object_or_404(get_user_model(), username=request.user)
@@ -61,6 +63,7 @@ def profile(request):
     context = {'user_profile': user_profile, 'orders': orders, 'form': form}
     return render(request, 'accounts/profile.html', context)
 
+# View for setting profile picture to default
 @login_required(login_url='/account/login/')
 def resetProfilePicture(request):
     user = get_object_or_404(get_user_model(), username=request.user)

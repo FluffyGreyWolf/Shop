@@ -10,6 +10,7 @@ class CreateUserForm(UserCreationForm):
         model = User
         fields = ['username', 'email', 'password1', 'password2']
 
+# Form for changing user profile picture
 class changePictureForm(ModelForm):
     class Meta:
         model = userProfile
