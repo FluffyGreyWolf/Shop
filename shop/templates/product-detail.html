@@ -24,6 +24,15 @@
     {{ product.description|safe }}
 </div>
 <div class="product-reviews">
-    <a class="link-button" href="{% url 'create-review' product.pk %}">Create review!</a>
+    {% if user_review %}
+        <a class="link-button" href="{% url 'create-review' product.pk %}">Edit review</a>
+        or
+        <a class="link-button" href="{% url 'remove-review' product.pk %}">Delete review</a>
+    {% elif request.user.is_authenticated  %}
+        <a class="link-button" href="{% url 'create-review' product.pk %}">Create review</a>
+    {% endif %}
+    {% for review in reviews %}
+    <p>{{ review.content }}</p>
+    {% endfor %}
 </div>
 {% endblock %}

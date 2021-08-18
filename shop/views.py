@@ -1,9 +1,10 @@
+from typing import Reversible
 from django.shortcuts import redirect, render, get_object_or_404
 from django.core.paginator import Paginator
 from .models import Product, orderHistory, orderProduct, Order, Review
 from .utils import refCodeGenereator
 from itertools import chain
-from django.contrib.auth import get_user_model
+from django.contrib.auth import authenticate, get_user_model
 from django.contrib.auth.decorators import login_required
 from .forms import ReviewForm
 
@@ -62,7 +63,13 @@ def productPriceFilter(request):
 # View for detailed page of product
 def productDetail(request, pk):
     product = get_object_or_404(Product, pk=pk)
-    context = {'product': product}
+    if request.user.is_authenticated:
+        user = get_object_or_404(get_user_model(), username=request.user)
+        user_review = Review.objects.filter(owner=user, product=product)
+    else:
+        user_review = None
+    reviews = Review.objects.get_queryset()
+    context = {'product': product, 'user_review': user_review, 'reviews': reviews}
     return render(request, 'product-detail.html', context)
 
 # View for rednering shopping cart page
@@ -173,3 +180,12 @@ def createReview(request, pk):
 
     context = {'product': product, 'form': form, 'instance': review}
     return render(request, 'create-review.html', context)
+
+# View for removing review of product
+@login_required(login_url='/account/login/')
+def removeReview(request, pk):
+    product = get_object_or_404(Product, pk=pk)
+    user = get_object_or_404(get_user_model(), username=request.user)
+    user_review = Review.objects.filter(owner=user, product=product)
+    user_review.delete()
+    return redirect("product-detail", product.pk)

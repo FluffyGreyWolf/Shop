@@ -15,4 +15,5 @@ urlpatterns = [
     path('add-to-cart-buy/<int:pk>', views.addToCartBuy, name='add-to-cart-buy'),
     path('remove-from-cart/<int:pk>', views.removeFromCart, name='remove-from-cart'),
     path('review/<int:pk>', views.createReview, name='create-review'),
+    path(r'^delete-entry/(?P<pk>\d+)/$', views.removeReview, name='remove-review'),
 ]
