@@ -66,10 +66,23 @@ def productDetail(request, pk):
     if request.user.is_authenticated:
         user = get_object_or_404(get_user_model(), username=request.user)
         user_review = Review.objects.filter(owner=user, product=product)
+        pucharsed = orderHistory.objects.filter(owner=user)
+        user_products = []
+        for item in pucharsed:
+            for item in item.cart_list():
+                user_products.append(item)
+        
+        for item in user_products:
+            if product.name == item.product.name:
+                pucharsed = True
+                break
+            else:
+                pucharsed = False
     else:
         user_review = None
+        pucharsed = False
     reviews = Review.objects.get_queryset()
-    context = {'product': product, 'user_review': user_review, 'reviews': reviews}
+    context = {'product': product, 'user_review': user_review, 'reviews': reviews, 'pucharsed': pucharsed}
     return render(request, 'product-detail.html', context)
 
 # View for rednering shopping cart page

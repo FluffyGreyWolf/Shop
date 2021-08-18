@@ -28,11 +28,14 @@
         <a class="link-button" href="{% url 'create-review' product.pk %}">Edit review</a>
         or
         <a class="link-button" href="{% url 'remove-review' product.pk %}">Delete review</a>
-    {% elif request.user.is_authenticated  %}
+    {% elif request.user.is_authenticated and pucharsed %}
         <a class="link-button" href="{% url 'create-review' product.pk %}">Create review</a>
+    {% else %}
+    Buy this item to make a review
     {% endif %}
     {% for review in reviews %}
     <p>{{ review.content }}</p>
     {% endfor %}
+    {{ pucharsed }}
 </div>
 {% endblock %}
