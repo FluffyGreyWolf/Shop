@@ -1,10 +1,11 @@
 from django.shortcuts import redirect, render, get_object_or_404
 from django.core.paginator import Paginator
-from .models import Product, orderHistory, orderProduct, Order
+from .models import Product, orderHistory, orderProduct, Order, Review
 from .utils import refCodeGenereator
 from itertools import chain
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
+from .forms import ReviewForm
 
 # View for rendering main page
 def home(request):
@@ -147,3 +148,28 @@ def orderDetail(request, pk):
     order = get_object_or_404(orderHistory, pk=pk)
     context = {'order': order}
     return render(request, 'order-detail.html', context)
+
+# View for creating review of product
+@login_required(login_url='/account/login/')
+def createReview(request, pk):
+    product = get_object_or_404(Product, pk=pk)
+    user = get_object_or_404(get_user_model(), username=request.user)
+    try:
+        review = get_object_or_404(Review, product=product, owner=user)
+    except:
+        review = None
+
+    if request.method == "POST":
+        form = ReviewForm(request.POST, instance=review)
+        
+        if form.is_valid():
+            updated_form = form.save(False)
+            updated_form.product = product
+            updated_form.owner = user
+            updated_form.save()
+            return redirect("product-detail", product.pk)
+    else:
+        form = ReviewForm()
+
+    context = {'product': product, 'form': form, 'instance': review}
+    return render(request, 'create-review.html', context)

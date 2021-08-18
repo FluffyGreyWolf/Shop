@@ -59,3 +59,9 @@ class userProfile(models.Model):
     user = models.ForeignKey(get_user_model(), on_delete=models.SET_NULL, null=True)
     profile_picture = ResizedImageField(size=[250, 250], upload_to="user_pictures/", default="default_profile_picture.png")
     bio = models.TextField(max_length=500, blank=True)
+
+class Review(models.Model):
+    owner = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, null=True)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, help_text="Reviewed product")
+    content = models.CharField(max_length=300, help_text="Review of a product")
+    rating = models.IntegerField(help_text="Rating of product")

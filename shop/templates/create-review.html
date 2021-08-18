@@ -1,0 +1,16 @@
+{% extends 'base.html' %} 
+{% block title %} Writing review... {% endblock %}
+{% block content %}
+
+{% if instance %}Edit review for {{ product.name }}{% else %}Create review for {{ product.name }}{% endif %}
+
+
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="link-button">
+        {% if instance %}Save{% else %}Create{% endif %}
+    </button>
+</form>
+
+{% endblock %}

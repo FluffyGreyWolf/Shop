@@ -23,4 +23,7 @@
 <div class="product-details-desc">
     {{ product.description|safe }}
 </div>
+<div class="product-reviews">
+    <a class="link-button" href="{% url 'create-review' product.pk %}">Create review!</a>
+</div>
 {% endblock %}
