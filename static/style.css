@@ -140,9 +140,9 @@ input[type=search] {
 
 /* login and register form */
 .register-form {
-  display: felx;
-  align-items: center;
-  width: 10%;
+  display: grid;
+  grid-template-columns: 1fr;
+  width: 20vw;
   margin: auto;
   padding: 100px;
   margin-top: 150px;
@@ -151,27 +151,60 @@ input[type=search] {
   box-shadow: 1px 1px 5px #888888;
 }
 
-.log-in-button {
-  margin-top: 15px;
-  padding: 5px;
+.register-form > button {
   width: 75px;
-  border: solid 1px black;
-  background-color: #DDD;
-  text-decoration: none;
+  margin: auto;
 }
 
-.log-in-button:hover {
-  background-color: #b8b8b8;
+.data-input > input {
+  width: 15vw;
+  margin-top: 15px;
+  margin-bottom: 15px;
 }
 
-.data-input {
-  margin-top: 5px;
-  margin-bottom: 10px;
-  margin-left: -1px;
+@media screen and (max-width: 900px){
+  .data-input > input {
+    width: 20vw;
+}
 }
 
-.real-register-form {
-  margin-top: 100px;
+#id_username {
+  width: 15vw;
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
+#id_email {
+  width: 15vw;
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
+#id_password1 {
+  width: 15vw;
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
+#id_password2 {
+  width: 15vw;
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
+@media screen and (max-width: 900px){
+  #id_username  {
+    width: 20vw;
+}
+  #id_email  {
+    width: 20vw;
+}
+  #id_password1  {
+    width: 20vw;
+}
+  #id_password2  {
+    width: 20vw;
+}
 }
 
 /* search result */

@@ -2,7 +2,7 @@
 {% block title %}Knell Register{% endblock %}
 {% block content %}
 
-<form class="register-form real-register-form" method="POST">
+<form class="register-form method="POST">
     {% csrf_token %}
     <div>
         <label>{{ form.username.label }}</label>
@@ -42,7 +42,7 @@
             </div>
         {% endfor %}
     {% endif %} 
-    <button type="submit" class="log-in-button">Sign in</button><br>
+    <button type="submit" class="link-button">Sign in</button><br>
     <p>Already have an account? <br><a href="/account/login/">Log in!</a></p>
     </form>
 
