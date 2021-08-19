@@ -65,6 +65,7 @@ class Review(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE, help_text="Reviewed product")
     content = models.CharField(max_length=300, help_text="Review of a product")
     rating = models.IntegerField(help_text="Rating of product")
+    profile_picture = ResizedImageField(size=[250, 250], upload_to="user_pictures/", default="default_profile_picture.png")
 
     def __str__(self):
         return f"{self.content}"

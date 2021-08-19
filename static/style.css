@@ -473,8 +473,59 @@ margin-top: 50px;
 }
 
 .product-details-desc {
-  background-color: #DDD;
+  width: 78%;
+  margin: auto;
+  border: 1px solid;
+  border-radius: 5px;
+  word-wrap: break-word;
+  padding: 18px;
+  text-align: left;
+}
+
+/* reviews on product detail page */
+.review {
   width: 80%;
   margin: auto;
-  margin-bottom: 30px;
+  background-color: #DDD;
+  border: 1px solid;
+  border-radius: 5px;
+}
+
+.single-review {
+  background-color: #DDD;
+  border: 1px solid;
+  display: grid;
+  grid-template-columns: 0.5fr 2fr;
+}
+
+.review-owner {
+  display: grid;
+  grid-template-columns: 0.2fr 1fr;
+  text-align: left;
+}
+
+.review-owner > img {
+  margin: 15px;
+}
+
+.review-owner > span {
+  margin-top: 50px
+}
+
+.review-owner > p {
+  text-align: left;
+  width: 100%;
+  margin-left: 30px;
+}
+
+.review-content {
+  text-align: left;
+  padding: 10px;
+}
+
+.review-buttons {
+  margin: auto;
+  padding: 50px;
+  width: 80%;
+  text-align: left;
 }

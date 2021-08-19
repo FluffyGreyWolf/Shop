@@ -1,7 +1,7 @@
 from typing import Reversible
 from django.shortcuts import redirect, render, get_object_or_404
 from django.core.paginator import Paginator
-from .models import Product, orderHistory, orderProduct, Order, Review
+from .models import Product, orderHistory, orderProduct, Order, Review, userProfile
 from .utils import refCodeGenereator
 from itertools import chain
 from django.contrib.auth import authenticate, get_user_model
@@ -81,7 +81,7 @@ def productDetail(request, pk):
     else:
         user_review = None
         pucharsed = False
-    reviews = Review.objects.get_queryset()
+    reviews = Review.objects.filter(product=product)
     context = {'product': product, 'user_review': user_review, 'reviews': reviews, 'pucharsed': pucharsed}
     return render(request, 'product-detail.html', context)
 
@@ -174,6 +174,7 @@ def orderDetail(request, pk):
 def createReview(request, pk):
     product = get_object_or_404(Product, pk=pk)
     user = get_object_or_404(get_user_model(), username=request.user)
+    picture = get_object_or_404(userProfile, user=user)
     try:
         review = get_object_or_404(Review, product=product, owner=user)
     except:
@@ -186,6 +187,7 @@ def createReview(request, pk):
             updated_form = form.save(False)
             updated_form.product = product
             updated_form.owner = user
+            updated_form.profile_picture = picture.profile_picture
             updated_form.save()
             return redirect("product-detail", product.pk)
     else:

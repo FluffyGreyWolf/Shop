@@ -24,18 +24,33 @@
     {{ product.description|safe }}
 </div>
 <div class="product-reviews">
-    {% if user_review %}
-        <a class="link-button" href="{% url 'create-review' product.pk %}">Edit review</a>
-        or
-        <a class="link-button" href="{% url 'remove-review' product.pk %}">Delete review</a>
-    {% elif request.user.is_authenticated and pucharsed %}
-        <a class="link-button" href="{% url 'create-review' product.pk %}">Create review</a>
-    {% else %}
-    Buy this item to make a review
+    <div class="review-buttons">
+        {% if user_review %}
+        You can 
+            <a class="link-button" href="{% url 'create-review' product.pk %}">Edit review</a>
+            or
+            <a class="link-button" href="{% url 'remove-review' product.pk %}">Delete review</a>
+        {% elif request.user.is_authenticated and pucharsed %}
+            <a class="link-button" href="{% url 'create-review' product.pk %}">Create review</a>
+        {% else %}
+        Buy this item to make a review
+        {% endif %}
+    </div>
+    {% if reviews %}
+    <div class="review">
+        {% for review in reviews %}
+        <div class="single-review">
+            <div class="review-owner">
+                <img class="profile-picture" width="90" height="90" src="{{ review.profile_picture.url }}">
+                <span>{{ review.owner }}</span>
+                <p>Rating: {{ review.rating }}/5</p>
+            </div>
+            <div class="review-content">
+                <p>{{ review.content }}</p>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
     {% endif %}
-    {% for review in reviews %}
-    <p>{{ review.content }}</p>
-    {% endfor %}
-    {{ pucharsed }}
 </div>
 {% endblock %}
