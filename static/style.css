@@ -448,8 +448,9 @@ margin-top: 50px;
 
 .product-details-content > img {
   margin: 50px;
-  width: 400px;
-  height: 300px;
+  margin-left: 100px;
+  max-width: 400px;
+  max-height: 300px;
 }
 
 .product-details-name {
@@ -528,4 +529,37 @@ margin-top: 50px;
   padding: 50px;
   width: 80%;
   text-align: left;
+}
+
+/* main page display */
+.main-display {
+  display: grid;
+  grid-template-columns: 0.5fr 2fr;
+}
+
+/* products display on main page */
+.products-display{
+  margin: 50px;
+  margin-top: 75px;
+  padding: 50px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 10px;
+}
+
+.single-product-display {
+  border: 1px solid;
+  border-radius: 5px;
+  display: grid;
+  grid-template-columns: 1fr;
+}
+
+.single-product-display:hover{
+  border: 2px solid;
+}
+
+.single-product-display > img {
+  max-width: 200px;
+  max-height: 200px;
+  margin: auto;
 }

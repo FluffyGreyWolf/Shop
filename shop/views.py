@@ -10,12 +10,18 @@ from .forms import ReviewForm
 
 # View for rendering main page
 def home(request):
+    products = Product.objects.get_queryset()
+    products_list = []
+    for product in products:
+        products_list.append(product)
+        if len(products_list) > 9:
+            break
     if request.user.is_authenticated:
         user = get_object_or_404(get_user_model(), username=request.user)
         order = Order.objects.get_or_create(owner=user)
-        context = {'user': user, 'order': order}
+        context = {'user': user, 'order': order, 'products_list': products_list}
     else:
-        context = {}
+        context = {'products_list': products_list}
     return render(request, 'base.html', context)
 
 # View for searching products
