@@ -94,60 +94,32 @@
     </nav>
     {% block content %}
     <div class="main-display">
-      <!-- Category menu -->
-      <div id="category-div" onselectstart="return false;">
-        <ol id="category-menu">
-          <li><a href="#">Components</a>
-          <ul>
-            <li><a href="/search-result?search-form=graphic">Graphic Cards</a></li>
-            <li><a href="/search-result?search-form=processor">Processors</a></li>
-            <li><a href="/search-result?search-form=motherboard">Motherboards</a></li>
-            <li><a href="/search-result?search-form=memory">Memory</a></li>
-            <li><a href="/search-result?search-form=hdd">Hard Drivers</a></li>
-            <li><a href="/search-result?search-form=ssd">SDDs</a></li>
-          </ul>
-          </li>
-
-          <li><a href="#">Accessories</a>
-            <ul>
-              <li><a href="/search-result?search-form=cable">Cables</a></li>
-              <li><a href="/search-result?search-form=adapter">Adapters</a></li>
-              <li><a href="/search-result?search-form=hub">Hubs</a></li>
-            </ul>
-            </li>
-
-            <li><a href="#">Peripherals</a>
-              <ul>
-                <li><a href="/search-result?search-form=monitor">Monitors</a></li>
-                <li><a href="/search-result?search-form=mouse">Mice</a></li>
-                <li><a href="/search-result?search-form=keyboard">Keyboards</a></li>
-                <li><a href="/search-result?search-form=printer">Printers</a></li>
-              </ul>
-              </li> 
-
-              <li><a href="#">Mobile Devices</a>
-                <ul>
-                  <li><a href="/search-result?search-form=phone">Phones</a></li>
-                  <li><a href="/search-result?search-form=tablet">Tablets</a></li>
-                  <li><a href="/search-result?search-form=laptop">Laptops</a></li>
-                  <li><a href="/search-result?search-form=smartwach">Smartwatches</a></li>
-                </ul>
-                </li> 
-                
-        </ol>
-        <p><img class="category-img" src="{% static 'banners/graphic-card-ad.jpg' %}"></p>
+      <!-- product of the day -->
+      <div class="product-of-the-day-div">
+        <p></p><p>Welcome on Knellshop.com.</p><p>Our best offer today is:</p>
+        <div class="product-of-the-day">
+          <div >
+            <a href="{% url 'product-detail' product_of_the_day.pk %}" class="single-product-display nav-link">
+              <img src="{{ STATIC_URL }}{{ product_of_the_day.picture }}">
+              {{ product_of_the_day }}
+            </a>
+          </div>
+        </div>
       </div>
 
       <!-- display of products -->
-      <div class="products-display">
-          {% for product in products_list %}
-          <a href="{% url 'product-detail' product.pk %}" class="single-product-display nav-link">
-            <img src="{{ STATIC_URL }}{{ product.picture }}">
-            {{ product }}
-          </a>
-          
-          {% endfor %}
-      </div>
+      <div class="products-display-container">
+        <span>Recommended:</span>
+        <div class="products-display">
+            {% for product in products_list %}
+            <a href="{% url 'product-detail' product.pk %}" class="single-product-display nav-link">
+              <img src="{{ STATIC_URL }}{{ product.picture }}">
+              {{ product }}
+            </a>
+            
+            {% endfor %}
+        </div>
+    </div>
   </div>
     {% endblock %}
 

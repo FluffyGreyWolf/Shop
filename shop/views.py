@@ -14,14 +14,15 @@ def home(request):
     products_list = []
     for product in products:
         products_list.append(product)
-        if len(products_list) > 9:
+        if len(products_list) > 6:
             break
+    product_of_the_day = products_list[0]
     if request.user.is_authenticated:
         user = get_object_or_404(get_user_model(), username=request.user)
         order = Order.objects.get_or_create(owner=user)
-        context = {'user': user, 'order': order, 'products_list': products_list}
+        context = {'user': user, 'order': order, 'products_list': products_list, 'product_of_the_day': product_of_the_day}
     else:
-        context = {'products_list': products_list}
+        context = {'products_list': products_list, 'product_of_the_day': product_of_the_day}
     return render(request, 'base.html', context)
 
 # View for searching products
