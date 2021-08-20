@@ -10,23 +10,20 @@
     <link rel="stylesheet" href="{% static 'style.css' %}" />
 </head>
 <body>
-  <div class="content">
-    <!-- navbar -->
+  <!--
     <nav onselectstart="return false;">
-        <ul class="nav-menu">
-            <li class="nav-logo"><a class="nav-link" href="/"><img src="{% static 'logo.png' %}" alt="Logo" width="70" height="50"></a></li>
-
-            <li class="nav-item nav-margin-left">
+        <ul class="no-style-list nav-bar">
+            <li><a class="nav-link" href="/"><img src="{% static 'logo.png' %}" alt="Logo" width="70" height="50"></a></li>
+            <li>
                 {% if request.user.is_authenticated %}
                 <a class="nav-link nav-button" href="{% url 'profile-url' %}">{{ request.user }}</a>
                 {% else %}
                 <a class="nav-link nav-button" href="{% url 'login-url' %}">Login</a>
                 {% endif %}
             </li>
+            <li><a class="nav-link nav-button" href="{% url 'cart' %}">Cart</a></li>
 
-            <li class="nav-item"><a class="nav-link nav-button" href="{% url 'cart' %}">Cart</a></li>
-
-            <li class="nav-item nav-dropdown">
+            <li class="nav-dropdown">
                 <a class="nav-link nav-button" id="nav-dropdown">Categories &blacktriangledown;</a>
                 <ul class="nav-submenu nav-relative">
                   <li class="nav-list">
@@ -67,16 +64,16 @@
             </li>
 
             {% if request.user.is_authenticated %}
-            <li class="nav-item nav-margin-right">
+            <li>
                 <a class="nav-link nav-button" href="{% url 'logout-url' %}">Logout</a>
             </li>
             {% else %}
-            <li class="nav-item nav-margin-right">
+            <li>
               <a class="nav-link nav-button" href="/">Main page</a>
           </li>
             {% endif %}
 
-            <li class="nav-item">
+            <li class="right-side">
                 <form method="GET" action="{% url 'search-result' %}">
                     <input type="search" placeholder="Search" name="search-form">
                     <button id="search-form-button" type="submit">Search</button>
@@ -84,14 +81,94 @@
             </li>
 
                 {% if request.user.is_staff%}
-                <li class="nav-item"></li>
-                    <ul class="nav-item">
+                <li>
+                  <ul>
+                    <ul>
                         <a class="nav-link nav-button" href="/admin">Admin Panel</a>
                     </ul>
                 </li>
-                {% endif %}   
+                {% endif %}  
+              
+                <li id="nav-mobile-menu" class="nav-mobile-menu"><a class="nav-link"><img src="{% static 'menu.png' %}" alt="Menu" width="70" height="50"></a></li>
         </ul>
     </nav>
+  -->
+
+<nav class="navbar">
+  <div class="brand"><a class="" href="/"><img src="{% static 'logo.png' %}" alt="Logo" width="70" height="50"></a></div>
+
+  <a class="toogle-menu" id="toogle-menu"><img  src="{% static 'menu.png' %}" alt="Menu" width="70" height="50"></a>
+
+  <div class="navbar-links">
+    <ul>
+      <li>
+        {% if request.user.is_authenticated %}
+        <a class="navbar-link cant-close" href="{% url 'profile-url' %}">{{ request.user }}</a>
+        {% else %}
+        <a class="navbar-link cant-close" href="{% url 'login-url' %}">Login</a>
+        {% endif %}
+      </li>
+
+      <li>
+        <a id="navbar-dropdown" class="navbar-link cant-close">Categories &blacktriangledown;</a>
+        <ul class="navbar-submenu">
+          <li class="no-style-list dropdown-item cant-close">
+              <a class="dropdown-link" id="components">Components</a>
+            <ul class="no-style-list dropdown-subitem dropdown-components">
+              <li><a href="/search-result?search-form=graphic">Graphic Cards</a></li>
+              <li><a href="/search-result?search-form=processor">Processors</a></li>
+              <li><a href="/search-result?search-form=motherboard">Motherboards</a></li>
+              <li><a href="/search-result?search-form=memory">Memory</a></li>
+              <li><a href="/search-result?search-form=hdd">Hard Drivers</a></li>
+              <li><a href="/search-result?search-form=ssd">SDDs</a></li>
+            </ul>
+          </li>
+          <li class="no-style-list dropdown-item cant-close">
+            <a class="dropdown-link" id="accessories">Accessories</a>
+            <ul class="no-style-list dropdown-subitem dropdown-accessories">
+              <li><a href="/search-result?search-form=cable">Cables</a></li>
+              <li><a href="/search-result?search-form=adapter">Adapters</a></li>
+              <li><a href="/search-result?search-form=hub">Hubs</a></li>
+            </ul>
+          </li>
+          <li class="no-style-list dropdown-item cant-close">
+            <a class="dropdown-link" id="peripherials">Peripherials</a>
+            <ul class="no-style-list dropdown-subitem dropdown-peripherials">
+              <li><a href="/search-result?search-form=monitor">Monitors</a></li>
+              <li><a href="/search-result?search-form=mouse">Mice</a></li>
+              <li><a href="/search-result?search-form=keyboard">Keyboards</a></li>
+              <li><a href="/search-result?search-form=printer">Printers</a></li>
+            </ul>
+          </li>
+          <li class="no-style-list dropdown-item cant-close">
+            <a class="dropdown-link" id="mobile-devices">Mobile Devices</a>
+            <ul class="no-style-list dropdown-subitem dropdown-mobile-devices">
+              <li><a href="/search-result?search-form=phone">Phones</a></li>
+              <li><a href="/search-result?search-form=tablet">Tablets</a></li>
+              <li><a href="/search-result?search-form=laptop">Laptops</a></li>
+              <li><a href="/search-result?search-form=smartwach">Smartwaches</a></li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+
+      {% if request.user.is_authenticated %}
+      <li><a class="nav-link nav-button navbar-link cant-close" href="{% url 'logout-url' %}">Logout</a></li>
+      {% endif %}
+
+      <li>
+        <form method="GET" action="{% url 'search-result' %}">
+          <input type="search" placeholder="Search" name="search-form">
+          <button id="search-form-button" type="submit">Search</button>
+        </form>
+      </li>
+
+      {% if request.user.is_staff%}
+      <li><a class="navbar-link cant-close" href="/admin">Admin Panel</a></li>
+      {% endif %}
+    </ul>
+  </div>
+</nav>
     {% block content %}
     <div class="main-display">
       <!-- product of the day -->
