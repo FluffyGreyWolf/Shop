@@ -24,3 +24,12 @@ class changeUsernameForm(ModelForm):
         help_texts = {
             'username': None,
         }
+
+class changeEmailForm(ModelForm):
+    email = forms.EmailField(widget=forms.EmailInput, label=False)
+    class Meta:
+        model = User
+        fields = ['email']
+        help_texts = {
+            'email': None,
+        }

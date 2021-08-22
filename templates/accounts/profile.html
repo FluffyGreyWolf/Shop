@@ -15,9 +15,13 @@
 
     <div class="profile-data">
         <h3>Account data:</h3>
-        <h4>Username: {{ request.user.username }}</h4><a class="link-button" href="{% url 'change-username' %}">Change username</a>
-        <h4>Email: {{ request.user.email }}</h4>
-        <h4>Amount of orders: {{ orders.count }}</h4>
+        <h4>Username: <span style="font-weight: normal;">{{ request.user.username }}</span></h4>
+        <h4>Email: <span style="font-weight: normal;">{{ request.user.email }}</span></h4>
+        <h4>Amount of orders: <span style="font-weight: normal;">{{ orders.count }}</span></h4>
+        <h4>Last login: <span style="font-weight: normal;">{{ request.user.last_login }}</span></h4>
+        <p><a class="link-button" href="{% url 'change-username' %}">Change username</a></p>
+        <p><a class="link-button" href="{% url 'change-email' %}">Change password</a></p>
+        <p><a class="link-button" href="{% url 'change-email' %}">Change email</a></p>
     </div>
 
     <div class="orders-div">

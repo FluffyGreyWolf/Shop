@@ -1,5 +1,5 @@
 from django.shortcuts import redirect, render, get_object_or_404
-from Knell.forms import CreateUserForm, changePictureForm, changeUsernameForm
+from Knell.forms import CreateUserForm, changeEmailForm, changePictureForm, changeUsernameForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
@@ -94,6 +94,29 @@ def changeUsername(request):
 
     context = {'form': form}
     return render(request, 'accounts/change-username.html', context)
+
+
+# View for changing email
+@login_required(login_url='/account/login/')
+def changeEmail(request):
+    user = get_object_or_404(get_user_model(), username=request.user)
+    if request.method == 'POST':
+        form = changeEmailForm(request.POST, instance=user)
+        newemail = form['email'].value()
+        if User.objects.filter(email=newemail):
+            messages.error(request, 'Email already in use!')
+            return redirect('change-email')
+        if form.is_valid:
+            messages.success(request, 'Email changed!')
+            form.save()
+            return redirect('profile-url')
+        else:
+            return redirect('change-email')
+    else:
+        form = changeEmailForm()
+
+    context = {'form': form}
+    return render(request, 'accounts/change-email.html', context)
     
     
     
