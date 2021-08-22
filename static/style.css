@@ -250,6 +250,29 @@ input[type=search] {
   margin-bottom: 15px;
 }
 
+.change-form {
+  display: grid;
+  grid-template-columns: 1fr;
+  width: 20vw;
+  margin: auto;
+  padding: 100px;
+  margin-top: 150px;
+  background-color:#f8f9fa;
+  border: solid 1px;
+  box-shadow: 1px 1px 5px #888888;
+}
+
+.change-form > button {
+  width: 75px;
+  margin: auto;
+}
+
+.data-input > input {
+  width: 15vw;
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
 @media screen and (max-width: 900px){
   .data-input > input {
     width: 20vw;

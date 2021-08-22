@@ -15,3 +15,12 @@ class changePictureForm(ModelForm):
     class Meta:
         model = userProfile
         fields = ['profile_picture']
+
+class changeUsernameForm(ModelForm):
+    username = forms.CharField(widget=forms.TextInput, label=False)
+    class Meta:
+        model = User
+        fields = ['username']
+        help_texts = {
+            'username': None,
+        }

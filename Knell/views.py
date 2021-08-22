@@ -1,10 +1,11 @@
 from django.shortcuts import redirect, render, get_object_or_404
-from Knell.forms import CreateUserForm, changePictureForm
+from Knell.forms import CreateUserForm, changePictureForm, changeUsernameForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import get_user_model
 from shop.models import userProfile, orderHistory
+from django.contrib.auth.models import User
 
 
 def registerUser(request):
@@ -71,3 +72,28 @@ def resetProfilePicture(request):
     user_profile.profile_picture = "user_pictures/default_profile_picture.png"
     user_profile.save()
     return redirect('profile-url')
+
+# View for changing username
+@login_required(login_url='/account/login/')
+def changeUsername(request):
+    user = get_object_or_404(get_user_model(), username=request.user)
+    if request.method == 'POST':
+        form = changeUsernameForm(request.POST, instance=user)
+        newusername = form['username'].value()
+        if User.objects.filter(username=newusername):
+            messages.error(request, 'Username already in use!')
+            return redirect('change-username')
+        if form.is_valid:
+            messages.success(request, 'Username changed!')
+            form.save()
+            return redirect('profile-url')
+        else:
+            return redirect('change-username')
+    else:
+        form = changeUsernameForm()
+
+    context = {'form': form}
+    return render(request, 'accounts/change-username.html', context)
+    
+    
+    
