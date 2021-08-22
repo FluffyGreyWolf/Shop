@@ -140,9 +140,6 @@ input[type=search] {
     text-decoration: none;
     color: black;
   }
-  .navbar {
-    margin-right: 15px;
-  }
 }
 
 @media (max-width: 900px){
