@@ -7,6 +7,7 @@ from itertools import chain
 from django.contrib.auth import authenticate, get_user_model
 from django.contrib.auth.decorators import login_required
 from .forms import ReviewForm
+from django.contrib import messages
 
 # View for rendering main page
 def home(request):
@@ -122,6 +123,7 @@ def addToCart(request, pk):
     user_order.products.add(ordered_item)
     user_order.ref_code = refCodeGenereator()
     user_order.save()
+    messages.success(request, 'Item added to cart!')
     return redirect('product-detail', pk)
 
 # View for removing items from cart

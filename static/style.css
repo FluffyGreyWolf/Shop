@@ -698,7 +698,8 @@ margin-top: 50px;
 }
 
 .single-product-display:hover{
-  border: 2px solid;
+  box-shadow: 1px 1px 5px #888888;
+  
 }
 
 .single-product-display > img {
