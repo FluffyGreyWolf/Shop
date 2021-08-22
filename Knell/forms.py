@@ -5,6 +5,7 @@ from django import forms
 from django.contrib.auth.models import User
 from shop.models import userProfile
 
+# Form for creating user
 class CreateUserForm(UserCreationForm):
     class Meta:
         model = User
@@ -16,6 +17,7 @@ class changePictureForm(ModelForm):
         model = userProfile
         fields = ['profile_picture']
 
+# Form for changing user name
 class changeUsernameForm(ModelForm):
     username = forms.CharField(widget=forms.TextInput, label=False)
     class Meta:
@@ -25,6 +27,7 @@ class changeUsernameForm(ModelForm):
             'username': None,
         }
 
+# Form for changing user email
 class changeEmailForm(ModelForm):
     email = forms.EmailField(widget=forms.EmailInput, label=False)
     class Meta:
@@ -32,4 +35,15 @@ class changeEmailForm(ModelForm):
         fields = ['email']
         help_texts = {
             'email': None,
+        }
+
+# Form for changing user password
+class changePasswordForm(ModelForm):
+    password = forms.CharField(widget=forms.PasswordInput, label='Enter password')
+    password_conf = forms.CharField(widget=forms.PasswordInput, label='Confirm password')
+    class Meta:
+        model = User
+        fields = ['password']
+        help_texts = {
+            'password': None,
         }

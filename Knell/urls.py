@@ -28,6 +28,7 @@ urlpatterns = [
     path('reset-profile-picture', Knell.views.resetProfilePicture, name='reset-profile-picture'),
     path('account/change-username/', Knell.views.changeUsername, name="change-username"),
     path('account/change-email/', Knell.views.changeEmail, name="change-email"),
+    path('account/change-password/', Knell.views.changePassword, name="change-password"),
     path('', include('shop.urls')),
 ]
 

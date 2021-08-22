@@ -1,5 +1,5 @@
 from django.shortcuts import redirect, render, get_object_or_404
-from Knell.forms import CreateUserForm, changeEmailForm, changePictureForm, changeUsernameForm
+from Knell.forms import CreateUserForm, changeEmailForm, changePasswordForm, changePictureForm, changeUsernameForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
@@ -118,5 +118,27 @@ def changeEmail(request):
     context = {'form': form}
     return render(request, 'accounts/change-email.html', context)
     
-    
+# View for changing password
+@login_required(login_url='/account/login/')
+def changePassword(request):
+    user = get_object_or_404(get_user_model(), username=request.user)
+    if request.method == 'POST':
+        form = changePasswordForm(request.POST, instance=user)
+        newpassword = form['password'].value()
+        password_conf = form['password_conf'].value()
+        if newpassword != password_conf:
+            messages.error(request, "Passwords doesn't mach!")
+            return redirect('change-password')
+        if form.is_valid:
+            messages.success(request, 'Password changed!')
+            user.set_password(newpassword)
+            user.save()
+            return redirect('profile-url')
+        else:
+            return redirect('change-password')
+    else:
+        form = changePasswordForm()
+
+    context = {'form': form}
+    return render(request, 'accounts/change-password.html', context)
     
