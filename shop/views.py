@@ -106,6 +106,12 @@ def cart(request):
 def addToCartBuy(request, pk):
     user = get_object_or_404(get_user_model(), username=request.user)
     product = get_object_or_404(Product, pk=pk)
+    if orderProduct.objects.filter(product=product):
+        ordered_item  = orderProduct.objects.get(product=product)
+        print(ordered_item.amount)
+        ordered_item.amount += 1
+        ordered_item.save()
+        print(ordered_item.amount)
     ordered_item, status  = orderProduct.objects.get_or_create(product=product)
     user_order, status = Order.objects.get_or_create(owner=user)
     user_order.products.add(ordered_item)
@@ -118,6 +124,12 @@ def addToCartBuy(request, pk):
 def addToCart(request, pk):
     user = get_object_or_404(get_user_model(), username=request.user)
     product = get_object_or_404(Product, pk=pk)
+    if orderProduct.objects.filter(product=product):
+        ordered_item  = orderProduct.objects.get(product=product)
+        print(ordered_item.amount)
+        ordered_item.amount += 1
+        ordered_item.save()
+        print(ordered_item.amount)
     ordered_item, status  = orderProduct.objects.get_or_create(product=product)
     user_order, status = Order.objects.get_or_create(owner=user)
     user_order.products.add(ordered_item)
@@ -129,8 +141,14 @@ def addToCart(request, pk):
 # View for removing items from cart
 @login_required(login_url='/account/login/')
 def removeFromCart(request, pk):
+    items_to_delete = orderProduct.objects.get(pk=pk)
     item_to_delete = orderProduct.objects.filter(pk=pk)
-    if item_to_delete.exists():
+    if items_to_delete.amount > 1:
+        items_to_delete.amount -= 1
+        items_to_delete.save()
+        return redirect('cart')
+
+    elif item_to_delete.exists():
         item_to_delete[0].delete()
         return redirect('cart')
 
@@ -142,7 +160,7 @@ def checkout(request):
     items = orderProduct.objects.filter(order=order)
     price = 0
     for item in items:
-        price += item.product.price
+        price += (item.product.price * item.amount)
     context = {'order': order, 'items': items, 'price': price}
     return render(request, 'checkout.html', context)
 

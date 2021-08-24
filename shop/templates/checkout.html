@@ -2,13 +2,21 @@
 {% block title %} Checkout {% endblock %}
 {% block content %}
 
-<h2 style="margin-left: 20px;">Your order</h2>
+
 <ul class="no-style-list cart-list">
+    <h2 style="margin-left: 20px;">Your order</h2>
 {% for item in items %}
-<li class="cart-item">{{ item }} <span class="remove-button">Price: {{ item.product.price }}$</span></li>
+
+<li class="cart-item">
+    {% if item.amount > 1 %}
+        {{ item.amount }}x
+        {% endif %}
+        {{ item }} <span class="remove-button">Price: {% widthratio item.amount 1 item.product.price %}$</span></li>
 {% endfor %}
 <li class="cart-item">Total price:<span class="remove-button">{{ price }}$</span></li>
-</ul>
+
 <a class="link-button" href="{% url 'buy' %}">Buy!</a>
+</ul>
+
 
 {% endblock %}

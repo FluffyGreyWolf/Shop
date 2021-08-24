@@ -27,10 +27,12 @@
     <div class="orders-div">
         <h3>Order history</h3>
         {% for order in orders reversed %}
-            <div class="single-order"><a class="nav-link nav-button" href="{% url 'order-detail' order.pk %}"><p>Order reference number: {{ order }}</p></a>
+            <div class="single-order"><a class="nav-link nav-button" href="{% url 'order-detail' order.pk %}"><p>Order reference number: {{ order }}</p></a>Ordered on {{ order.date_ordered }}
                 <p>Items in order:
                     {% for item in order.cart_list %}
-                    <p>{{ item }}</p>
+                    <p>{% if item.amount > 1 %}
+                        {{ item.amount }}x
+                        {% endif %} {{ item }}</p>
                     {% endfor %}
                 </p>
             </div>

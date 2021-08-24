@@ -9,7 +9,11 @@
     <h2>Your order</h2>
     <div class="cart-items">
     {% for item in order.cart_list %}
-    <li class="cart-item">{{ item }} <a class="link-button remove-button" href="{% url 'remove-from-cart' item.pk %}">Remove</a></li>
+    <li class="cart-item">
+        {% if item.amount > 1 %}
+        {{ item.amount }}x
+        {% endif %}
+        {{ item }} <a class="link-button remove-button" href="{% url 'remove-from-cart' item.pk %}">Remove</a></li> 
     {% endfor %}
     </div>
     <a class="link-button" href="{% url 'checkout' %}">Proceed to checkout</a>
